@@ -1,4 +1,6 @@
+import { v4 as uuid } from 'uuid';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   PrimaryColumn,
@@ -7,11 +9,13 @@ import {
 
 @Entity('connections')
 class Connection {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
+  @Column()
   admin_id: string;
 
+  @Column()
   user_id: string;
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -19,6 +23,12 @@ class Connection {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
 
 export default Connection;

@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('settings')
 class Setting {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column('varchar')

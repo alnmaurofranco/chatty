@@ -1,5 +1,7 @@
 import { Request, Response, Router } from 'express';
 import settingsRoutes from './settings.routes';
+import usersRoutes from './users.routes';
+import messagesRoutes from './messages.routes';
 
 const routes = Router();
 
@@ -8,5 +10,7 @@ routes.get('/', (_req: Request, res: Response) => {
 });
 
 routes.use('/settings', settingsRoutes);
+routes.use('/users', usersRoutes);
+routes.use('/messages', messagesRoutes);
 
 export default routes;

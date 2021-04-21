@@ -10,8 +10,8 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@models/*": [
-        "./src/models/*"
+      "@entities/*": [
+        "./src/entities/*"
       ],
       "@views/*": [
         "./src/views/*"
@@ -25,8 +25,8 @@
       "@config/*": [
         "./src/config/*"
       ],
-      "@repository/*": [
-        "./src/repository/*"
+      "@repositories/*": [
+        "./src/repositories/*"
       ],
       "@errors/*": [
         "./src/errors/*"
