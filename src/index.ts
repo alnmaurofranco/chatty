@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 import '@config/env';
-import server from './server';
+import { http } from './server';
 import './database';
 import { baseUrl, port } from '@config/index';
+import './websockets/client';
 
-server.listen(port, async () => {
+http.listen(port, async () => {
   console.log(`🟢 Server started on ${baseUrl}:${port}`);
 });

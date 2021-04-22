@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class CreateConnections1618924746602 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -14,10 +19,15 @@ export class CreateConnections1618924746602 implements MigrationInterface {
           {
             name: 'admin_id',
             type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'user_id',
             type: 'uuid',
+          },
+          {
+            name: 'socket_id',
+            type: 'varchar',
           },
           {
             name: 'created_at',
@@ -32,9 +42,22 @@ export class CreateConnections1618924746602 implements MigrationInterface {
         ],
       })
     );
+
+    await queryRunner.createForeignKey(
+      'connections',
+      new TableForeignKey({
+        name: 'FKConnectionUser',
+        referencedTableName: 'users',
+        referencedColumnNames: ['id'],
+        columnNames: ['user_id'],
+        onUpdate: 'SET NULL',
+        onDelete: 'SET NULL',
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('connections', 'FKConnectionUser');
     await queryRunner.dropTable('connections');
   }
 }

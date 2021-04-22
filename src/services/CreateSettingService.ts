@@ -30,6 +30,23 @@ class CreateSettingService {
 
     return settings;
   }
+
+  public async findByUsername(username: string): Promise<Setting> {
+    const settings = await this.ormRepository.findOne({
+      username,
+    });
+
+    return settings;
+  }
+
+  public async update({ chat, username }: IRequest): Promise<void> {
+    await this.ormRepository
+      .createQueryBuilder()
+      .update(Setting)
+      .set({ chat })
+      .where('username = :username', { username })
+      .execute();
+  }
 }
 
 export default CreateSettingService;

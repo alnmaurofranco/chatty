@@ -9,6 +9,12 @@ class CreateUserService {
     this.ormRepository = getCustomRepository(UsersRepository);
   }
 
+  public async findByEmail(email: string): Promise<User> {
+    const user = await this.ormRepository.findOne({ email });
+
+    return user;
+  }
+
   public async execute(email: string): Promise<User> {
     const userAlreadyExists = await this.ormRepository.findOne({ email });
 

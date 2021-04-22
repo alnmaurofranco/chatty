@@ -1,8 +1,11 @@
 import { v4 as uuid } from 'uuid';
+import User from '@entities/User';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -12,10 +15,17 @@ class Connection {
   @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('uuid')
   admin_id: string;
 
-  @Column()
+  @Column('varchar')
+  socket_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column('uuid')
   user_id: string;
 
   @CreateDateColumn({ type: 'timestamp' })
