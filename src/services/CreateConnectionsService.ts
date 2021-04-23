@@ -39,6 +39,34 @@ class CreateConnectionsService {
 
     return userConnected;
   }
+
+  public async findAllWithoutAdmin(): Promise<Connection[]> {
+    const connections = await this.ormRepository.find({
+      where: {
+        admin_id: null,
+      },
+      relations: ['user'],
+    });
+
+    return connections;
+  }
+
+  public async findBySocketId(socket_id: string) {
+    const connection = await this.ormRepository.findOne({ socket_id });
+
+    return connection;
+  }
+
+  public async updateAdminId(user_id: string, admin_id: string) {
+    await this.ormRepository
+      .createQueryBuilder()
+      .update(Connection)
+      .set({ admin_id })
+      .where('user_id = :user_id', {
+        user_id,
+      })
+      .execute();
+  }
 }
 
 export default CreateConnectionsService;

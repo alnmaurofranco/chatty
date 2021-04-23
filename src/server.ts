@@ -45,6 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Rotas
 server.get('/', (req, res) => res.render('html/client.html'));
+server.get('/admin', (req, res) => res.render('html/admin.html'));
 server.use('/api', routes);
 
 server.use(errorHandler);
